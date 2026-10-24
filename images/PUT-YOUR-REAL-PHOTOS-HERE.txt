@@ -1,0 +1,6 @@
+Copy these 3 real photos into THIS folder:
+hero-makhana.jpg
+processing-machine.jpg
+plain-makhana.jpg
+
+See README.txt in the parent folder for steps.

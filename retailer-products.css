@@ -1,0 +1,196 @@
+
+/* =============================================================
+   KRUNKO: THREE EXPANDING RETAILER PRODUCT CARDS
+   Same-card horizontal expansion, inspired by Team.html.
+   Scoped to .kr-products-section so old retailer design stays intact.
+   ============================================================= */
+.kr-products-section { background: #fffdf0; }
+.kr-products-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:38px; }
+.kr-products-heading p:not(.section-kicker) { max-width:630px; margin:14px 0 0; color:var(--text-muted); }
+.kr-product-grid { display:flex; gap:22px; align-items:stretch; justify-content:center; width:100%; min-width:0; }
+.kr-product-card { min-width:0; flex:1 1 0; display:flex; position:relative; height:440px; background:#fff; border:2px solid var(--black); border-radius:22px; box-shadow:6px 7px 0 var(--black); overflow:hidden; transition:box-shadow .3s ease, background .3s ease; }
+.kr-product-card:hover { box-shadow:7px 10px 0 var(--black); }
+.kr-product-preview { flex:0 0 100%; min-width:0; display:flex; flex-direction:column; position:relative; text-align:left; padding:22px; background:#fff; color:var(--black); border:0; width:100%; cursor:pointer; font-family:var(--body); transition:background .4s ease, flex-basis .6s cubic-bezier(.77,0,.18,1); }
+.kr-product-preview:hover { background:#fffef5; }
+.kr-product-index { font-size:10px; font-weight:900; letter-spacing:.12em; color:var(--green); }
+.kr-product-preview-photo { display:flex; align-items:center; justify-content:center; width:100%; height:230px; margin:10px 0 14px; padding:10px; background:#f8f5dd; border:1px solid #eee6b8; border-radius:14px; overflow:hidden; }
+.kr-product-preview-photo img { width:100%; height:100%; object-fit:contain; }
+.kr-product-heading-text { display:block; font:900 clamp(24px,2.1vw,31px)/1.1 var(--heading); letter-spacing:-.035em; }
+.kr-product-preview-subtitle { display:block; color:#666b56; font-size:12px; margin-top:7px; }
+.kr-view-more { display:flex; align-items:center; justify-content:space-between; color:var(--green); font-size:11px; font-weight:900; letter-spacing:.07em; margin-top:auto; padding-top:12px; }
+.kr-view-more span { font-size:23px; line-height:1; }
+.kr-product-expanded { width:0; min-width:0; flex:0 0 0px; opacity:0; visibility:hidden; overflow:hidden; transform:translateX(-22px); transition:width .6s cubic-bezier(.77,0,.18,1),flex-basis .6s cubic-bezier(.77,0,.18,1),transform .6s cubic-bezier(.77,0,.18,1),opacity .3s ease,visibility 0s linear .6s; }
+.kr-product-expanded-inner { position:relative; width:100%; height:100%; padding:29px 30px 24px 30px; display:flex; flex-direction:column; }
+.kr-product-expanded h3 { font-size:clamp(26px,2.4vw,38px); font-weight:900; margin:0 0 8px; }
+.kr-product-expanded .section-kicker { font-size:10px; margin:0 45px 10px 0; }
+.kr-product-description { color:var(--text-muted); font-size:13px; line-height:1.6; margin:0 0 12px; }
+.kr-close-product { position:absolute; right:23px; top:12px; border:0; background:transparent; font:400 38px/1 var(--body); color:var(--green); width:44px; height:44px; display:grid; place-items:center; border-radius:50%; z-index:2; }
+.kr-close-product:hover { background:var(--green-soft); }
+.kr-product-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 11px; min-width:0; }
+.kr-product-gallery figure { display:flex; flex-direction:column; min-width:0; margin:0; padding:6px; background:#f6f5e8; border:1px solid #ebebdd; border-radius:12px; }
+.kr-product-gallery img { display:block; width:100%; height:140px; object-fit:contain; border-radius:8px; }
+.kr-product-gallery figcaption { font-size:10px; font-weight:900; letter-spacing:.09em; text-align:center; padding:6px 0 1px; color:var(--green); }
+.kr-product-help { font-size:12px; color:var(--text-muted); margin:0 0 12px; }
+.kr-product-expanded .kr-enquire-product { align-self:flex-start; min-height:44px; font-size:12px; padding:12px 18px; gap:22px; margin-top:auto; }
+.kr-products-bottom-note { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:34px; font-size:13px; font-weight:600; }
+.kr-products-bottom-note span:first-child { color:var(--green); font-weight:900; }
+/* Team.html behavior: the clicked card stays in its original row and becomes full width. */
+.kr-product-grid.active-mode > .kr-product-card:not(.is-active) { display:none; }
+.kr-product-card.is-active { flex:1 1 100%; width:100%; background:#fffef5; }
+.kr-product-card.is-active .kr-product-preview { flex-basis:310px; width:310px; background:#ffed7b; }
+.kr-product-card.is-active .kr-product-expanded { flex:1 1 auto; width:calc(100% - 310px); visibility:visible; transform:translateX(0); opacity:1; transition:width .6s cubic-bezier(.77,0,.18,1),flex-basis .6s cubic-bezier(.77,0,.18,1),transform .6s cubic-bezier(.77,0,.18,1),opacity .35s ease .32s,visibility 0s linear 0s; }
+.kr-selected-product-row { display:flex; align-items:center; flex-wrap:wrap; gap:9px 13px; padding:15px 18px; background:#f8f7ee; border:1px solid #e7e6d9; border-radius:12px; margin:0 0 20px; }
+.kr-selected-product-row .kr-selected-label { font-size:12px; color:var(--text-muted); font-weight:700; }
+.kr-selected-product-row strong { font-family:var(--heading); font-size:17px; }
+.kr-selected-product-row a { margin-left:auto; color:var(--green); font-weight:800; font-size:12px; text-decoration:underline; }
+.kr-selected-product-row.is-selected { border-color:var(--green); background:#edf4e5; }
+@media (max-width:1050px) and (min-width:768px) {
+ .kr-product-grid { gap:12px; }
+ .kr-product-card { height:435px; }
+ .kr-product-preview { padding:13px; }
+ .kr-product-preview-photo { height:225px; }
+ .kr-product-card.is-active .kr-product-preview { flex-basis:240px; width:240px; }
+ .kr-product-card.is-active .kr-product-expanded { width:calc(100% - 240px); }
+ .kr-product-expanded-inner { padding:25px 17px; }
+ .kr-product-gallery img { height:135px; }
+}
+@media (max-width:767px) {
+ .kr-products-heading { margin-bottom:25px; }
+ .kr-product-grid { flex-direction:column; align-items:center; gap:18px; }
+ .kr-product-card { width:100%; max-width:460px; height:auto; min-height:0; flex-direction:column; flex:initial; }
+ .kr-product-preview { width:100%; padding:20px; flex-basis:auto; flex-shrink:0; }
+ .kr-product-preview-photo { height:245px; margin-top:14px; }
+ .kr-product-heading-text { font-size:28px; }
+ .kr-product-card.is-active .kr-product-preview { width:100%; flex-basis:auto; }
+ /* Just like Team.html's mobile rule: don't hide the other cards. */
+ .kr-product-grid.active-mode > .kr-product-card:not(.is-active) { display:flex; }
+ .kr-product-expanded { width:100%; max-height:0; flex:none; opacity:0; visibility:hidden; transform:translateY(-18px); transition:max-height .6s cubic-bezier(.77,0,.18,1),opacity .3s ease,transform .6s ease,visibility 0s linear .6s; }
+ .kr-product-card.is-active .kr-product-expanded { width:100%; max-height:1500px; flex:none; opacity:1; visibility:visible; transform:translateY(0); transition:max-height .65s cubic-bezier(.77,0,.18,1),opacity .35s ease .2s,transform .6s ease,visibility 0s linear 0s; }
+ .kr-product-expanded-inner { padding:24px 18px; }
+ .kr-product-gallery img { height:clamp(110px,32vw,205px); }
+ .kr-close-product { right:12px; top:9px; }
+ .kr-selected-product-row a { margin-left:0; }
+}
+@media (max-width:375px) {
+ .kr-product-preview-photo { height:220px; }
+ .kr-product-expanded-inner { padding:22px 14px; }
+ .kr-product-gallery { gap:8px; }
+ .kr-product-gallery img { height:110px; }
+ .kr-product-expanded .kr-enquire-product { white-space:normal; }
+}
+@media (prefers-reduced-motion:reduce) {
+ .kr-product-card,.kr-product-preview,.kr-product-expanded { transition:none!important; }
+}
+
+/* Retain the original V4 image layout, with a visual fallback if the hero photo is missing. */
+.kr-hero-photo-fallback{height:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:#fff6cb;color:#203820;font:900 clamp(34px,5vw,60px)/1 var(--heading);letter-spacing:-.065em}
+.kr-hero-photo-fallback span{color:#698f3f}
+[data-photo-container="hero"].has-real-photo .kr-hero-photo-fallback{display:none}
+.kr-product-grid .kr-product-card button:focus-visible,.kr-product-grid .kr-product-card a:focus-visible{outline:3px solid #365b28;outline-offset:-3px}
+/* Escape-closed panels must be out of keyboard order (JS also sets inert). */
+.kr-product-grid .kr-product-expanded[aria-hidden="true"]{pointer-events:none}
+@media(max-width:767px){.kr-product-card.is-active{width:100%}}
+
+
+/* =============================================================
+   PACK IMAGE HOVER (matching the krunko-1 "Our Makhana Packs" UX)
+   Front stays visible by default. Desktop hover reveals the back.
+   Mobile/touch visitors tap the IMAGE to flip; View Details expands.
+   Images switch while cards are CLOSED as well as when expanded.
+   ============================================================= */
+.kr-product-preview { cursor:default; }
+.kr-product-preview-photo {
+  position:relative; display:block; box-sizing:border-box; width:100%;
+  flex:0 0 auto; padding:10px; cursor:pointer; outline-offset:3px;
+}
+.kr-product-preview-photo img.front,
+.kr-product-preview-photo img.back {
+  display:block; width:100%; height:100%; max-width:none;
+  object-fit:cover; transition:opacity .3s ease;
+}
+.kr-product-preview-photo img.front { opacity:1; }
+.kr-product-preview-photo img.back {
+  position:absolute; top:10px; left:10px;
+  width:calc(100% - 20px); height:calc(100% - 20px);
+  opacity:0; pointer-events:none;
+}
+.kr-flip-tip {
+  position:absolute; bottom:7px; right:7px; z-index:2;
+  padding:5px 9px; border-radius:999px;
+  background:rgba(255,255,244,.96); color:#31512b;
+  font:800 10px/1.2 var(--body,Arial,sans-serif); letter-spacing:.025em;
+  pointer-events:none; box-shadow:0 2px 10px #00000012;
+}
+@media(hover:hover) and (pointer:fine) {
+  .kr-product-preview-photo:hover img.front { opacity:0; }
+  .kr-product-preview-photo:hover img.back { opacity:1; }
+}
+/* Touch-only flip is controlled by JS instead of hover. */
+.kr-product-preview-photo.is-flipped img.front { opacity:0; }
+.kr-product-preview-photo.is-flipped img.back { opacity:1; }
+.kr-product-trigger {
+  display:flex; flex-direction:column; flex:1 1 auto;
+  width:100%; min-width:0; padding:0; margin:0;
+  background:transparent; border:0; color:inherit;
+  text-align:left; font-family:var(--body,Arial,sans-serif);
+  cursor:pointer; align-items:stretch;
+}
+.kr-product-trigger:hover .kr-view-more { text-decoration:underline; }
+.kr-product-trigger:focus-visible,.kr-product-preview-photo:focus-visible {
+  outline:3px solid #365b28; outline-offset:4px; border-radius:8px;
+}
+.kr-product-info-list {display:grid;gap:0;margin:16px 0 18px;border-top:1px solid #dfe4cf;}
+.kr-product-info-list>div {display:grid;grid-template-columns:145px minmax(0,1fr);gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid #dfe4cf;}
+.kr-product-info-list span {font-size:10px;letter-spacing:.08em;font-weight:900;color:#47683d;}
+.kr-product-info-list strong {font-size:13px;font-weight:700;line-height:1.45;color:#272922;}
+.kr-product-expanded .kr-enquire-product {align-self:flex-start;margin-top:auto;white-space:normal;}
+.kr-product-expanded .kr-product-description {font-size:14px;line-height:1.6;}
+.kr-product-preview-photo:focus-visible {outline-offset:2px;}
+@media(max-width:1050px) and (min-width:768px) {
+ .kr-product-preview-photo {height:210px;}
+ .kr-product-expanded .kr-product-description {font-size:13px;margin-bottom:5px;}
+ .kr-product-info-list {margin:8px 0;}
+ .kr-product-info-list>div {grid-template-columns:115px 1fr;padding:9px 0;}
+ .kr-product-info-list strong {font-size:12px;}
+}
+@media(max-width:767px) {
+ .kr-flip-tip {font-size:10px;}
+ .kr-product-info-list>div {grid-template-columns:110px 1fr;gap:10px;}
+ .kr-product-trigger {min-height:93px;}
+}
+@media(max-width:375px) {
+ .kr-product-info-list>div {grid-template-columns:1fr;gap:3px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .kr-product-preview-photo img {transition:none !important;}
+}
+
+/* Enquiry product checkboxes, scoped to the existing retailer form. */
+.kr-product-picker { min-width:0; border:0; padding:0; margin:0 0 16px; }
+.kr-product-picker legend { font-size:13px; font-weight:900; margin-bottom:10px; }
+.kr-product-options { display:flex; flex-wrap:wrap; gap:10px 18px; }
+.kr-product-options label { display:flex; align-items:center; gap:9px; min-height:44px; font-size:13px; font-weight:700; cursor:pointer; }
+.kr-product-options input { width:18px; height:18px; margin:0; accent-color:var(--green); flex-shrink:0; }
+.kr-product-options input[aria-invalid="true"] { outline:2px solid #bf4933; outline-offset:2px; }
+#kr-selected-product-name { overflow-wrap:anywhere; min-width:0; }
+
+/* Multi-product enquiry enhancements (scoped to existing form only). */
+.kr-picker-help { margin: -2px 0 12px; font-size: 12px; line-height: 1.55; color: var(--text-muted, #62665b); }
+.kr-product-picker .kr-product-options { gap: 10px; }
+.kr-product-picker .kr-product-option {
+  display: inline-flex; gap: 10px; align-items: center;
+  padding: 10px 15px; border: 1.5px solid #d4dac9;
+  border-radius: 12px; background: #fff;
+  cursor: pointer; transition: border-color .18s, background .18s;
+}
+.kr-product-picker .kr-product-option:hover,
+.kr-product-picker .kr-product-option:focus-within { border-color: var(--green, #365b28); }
+.kr-product-picker .kr-product-option:has(input:checked) { border-color: var(--green, #365b28); background: #eaf4df; }
+.kr-product-picker .kr-product-option input:checked + span { color: #244622; font-weight: 900; }
+.kr-product-picker .kr-product-option input:focus-visible { outline: 3px solid var(--green, #365b28); outline-offset: 3px; }
+.kr-product-error { margin: 11px 0 0; font-size: 12px; font-weight: 700; color: #ad392c; }
+.kr-selected-product-row .kr-selected-count { margin-left: auto; font-size: 11px; font-weight: 800; color: var(--green, #365b28); white-space: nowrap; }
+@media (max-width: 450px) {
+  .kr-product-picker .kr-product-option { width: 100%; }
+  .kr-selected-product-row .kr-selected-count { width: 100%; margin-left: 0; }
+}

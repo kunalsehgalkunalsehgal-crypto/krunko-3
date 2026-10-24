@@ -1,0 +1,85 @@
+KRUNKO RETAILER – NO PYTHON INSTALLATION
+========================================
+This package contains only HTML, CSS, JS snippets and 6 temporary product-image placeholders.
+No Python, .bat or package installation is needed.
+
+BEFORE STARTING: Make a backup copy of your existing retailer.html, retailer.css, and retailer.js.
+Edit your ORIGINAL KRUNKO repo files, NOT preview.html.
+
+STEP 1 — retailer.html
+----------------------------------------
+A. Find the original section beginning with:
+   <section class="flavours-section plain-section section-space" id="plain-makhana">
+   and ending at its matching </section> closing tag (BEFORE the next section).
+B. Comment out the WHOLE old section:
+   <!--
+   [entire old Meet Plain Makhana section]
+   -->
+   (Do not delete it.)
+C. DIRECTLY AFTER that closing HTML comment, paste everything from product-section.html.
+D. Find the existing hidden form input:
+   <input name="product" type="hidden" value="Plain Makhana"/>
+   Replace JUST this input with:
+   <div class="kr-selected-product-row" id="kr-selected-product-row" aria-live="polite">
+     <span class="kr-selected-label">ENQUIRY FOR</span>
+     <strong id="kr-selected-product-name">No product selected yet</strong>
+     <a href="#plain-makhana">Choose / change product ↗</a>
+   </div>
+   <input name="product" type="hidden" value=""/>
+E. Update user-facing heading and hero references that imply ONLY one product to reflect three. Avoid editing the old commented section.
+
+STEP 2 — retailer.css
+----------------------------------------
+Paste ALL content of product-styles.css at the VERY BOTTOM of retailer.css.
+Keep the existing CSS intact.
+
+STEP 3 — retailer.js
+----------------------------------------
+A. Find your existing "function validateForm() {" and insert these lines at its START:
+   if (!form.elements.product.value.trim()) {
+     showResponse('Please select one of the three products before preparing your enquiry.', true);
+     document.getElementById('plain-makhana')?.scrollIntoView({behavior:'smooth',block:'start'});
+     return false;
+   }
+B. Find this literal in the existing email body:
+   'I would like to enquire about buying Plain Makhana for my business.',
+   Change it to:
+   `I would like to enquire about buying ${data.get('product')} for my business.`,
+C. Find:
+   `Product: ${data.get('product') || 'Plain Makhana'}`
+   Change to:
+   `Product: ${data.get('product')}`
+D. Find the existing email subject:
+   const subject = 'KRUNKO Plain Makhana Enquiry - ' + form.elements.businessName.value.trim();
+   Change to:
+   const subject = 'KRUNKO ' + form.elements.product.value + ' Enquiry - ' + form.elements.businessName.value.trim();
+E. At the VERY BOTTOM of retailer.js, paste ALL content from product-logic.js.
+
+STEP 4 — Images
+----------------------------------------
+Copy the 6 files inside this package's images/ folder into YOUR krunko-4/images/ folder.
+Replace placeholder photos with 6 REAL front/back photos but keep their filenames:
+    product-1-front.jpg; product-1-back.jpg
+    product-2-front.jpg; product-2-back.jpg
+    product-3-front.jpg; product-3-back.jpg
+IMPORTANT: Existing real files should not be overwritten unintentionally.
+
+STEP 5 — Product names
+----------------------------------------
+In the NEW product-section HTML (not the old commented section), replace ALL occurrences of Product 1, Product 2, Product 3 with real names, including data-product attributes, headings and button text.
+
+STEP 6 — Browser testing
+----------------------------------------
+Open retailer.html in your browser.
+- Test each card expanding: on desktop other cards disappear, expanded information opens INSIDE clicked card.
+- On mobile expansion happens vertically.
+- Test each Enquire button, check chosen product name in form.
+- Verify email draft contains the selected product name.
+- Check mobile sizing at 320/375/390/768px and larger desktop widths.
+- The existing form still opens an EMAIL DRAFT; no backend sends or stores enquiries.
+
+NOTES
+----------------------------------------
+Customer home.html, style.css, script.js, index.html do not need changes.
+No Python code is in this no-Python package.
+This is a COPY/PASTE integration kit, not pre-merged full replacement files.
